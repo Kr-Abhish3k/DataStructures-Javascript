@@ -7,10 +7,10 @@ Implementation of few most used DS in JS
 A data structure is a way to store and organize data so that it can be used efficiently.
 A data structure is a collection of data values, the relationships among them, and the functions or operations that can be applied to that data.
 
-_Why to learan Data Strucutres?_
-Every application that we build needs to model data in a certain way. To efficiently manage the data, we need data structure. Imagine walking into a library where books are just kept in aa random order, with no sorting and grouping of the books. It would take hours for us to find a particular book. It would waste a lot of time and we might not step in the same place ever again.
-A similar approach comes in play when we strucutre our code as well. The difference between a function taking miliseconds vs a few minutes comes down to the selection of right data structure.
-Data structures help us solve problems in a more efficient way both in terms of time and memory.
+_Why to learan Data Strucutres?_  
+Every application that we build needs to model data in a certain way. To efficiently manage the data, we need data structure. Imagine walking into a library where books are just kept in aa random order, with no sorting and grouping of the books. It would take hours for us to find a particular book. It would waste a lot of time and we might not step in the same place ever again.  
+A similar approach comes in play when we strucutre our code as well. The difference between a function taking miliseconds vs a few minutes comes down to the selection of right data structure.  
+Data structures help us solve problems in a more efficient way both in terms of time and memory.  
 Learning about data structures also help us gain a more profound understanding of things we're already aware of.
 
 Data structure are everywhere. For example:
@@ -45,7 +45,7 @@ Custom Data Structures
 **CHARACTERISTICS**  
 An array is a data structure is a data structure that can hold clooection of values.  
 Array can contain a mix of different data types. We can store strings, booleans, numbers or even objects all in the same array.  
-Arrays are resizable. We don't have to declar ethe size of an array before creating it.  
+Arrays are resizable. We don't have to declare the size of an array before creating it.  
 Javascript arrays are zero-indexed and the insertion order is maintained.  
 Arrays are iterables. They can be used with a for loop.
 
@@ -244,3 +244,108 @@ console.log(map.size);
 ## Custom Data Structures
 
 ### Stack
+
+**CHARACTERISTICS**
+
+- The stack data structure is a sequential collection of elements that follows the principle of **Last In First Out [LIFO]**.
+- The last element to be inserted on to the stack is the first ine to be removed.
+- A common analogy can be a stack of plates, The plate placed on top is the last one added and first to be removed from the stack.
+- Stack is an abstract data type. It is defined by its behavior rather than being a mathematical model.
+
+* the stack data structure supports two main operations
+  - Push, which adds an element ot collection
+  - Pop, which removes the most recently added element from the collection.
+
+![Stack Data Structure Visualisation](/assets/images/Stack_DS.png)
+
+#### Stack Usage
+
+A stack is a useful data structure when we have to trace back our steps. For example:
+
+- Browser history tracking
+- Undo operation when typing
+- Expression Conversion [Infix to Postfix]
+- Call Stack in JS runtime
+
+#### Stack Implementation Using Array
+
+```js
+class Stack {
+  constructor() {
+    this.items = [];
+  }
+
+  push(element) {
+    this.items.push(element);
+  }
+  pop() {
+    return this.items.pop();
+  }
+  peek() {
+    return this.items.length && this.items[this.items.length - 1];
+  }
+  size() {
+    return this.items.length;
+  }
+  print() {
+    console.log(this.items);
+  }
+  isEmpty() {
+    return this.items.length === 0;
+  }
+}
+const stack = new Stack();
+console.log(stack.isEmpty());
+stack.push(20);
+stack.push(10);
+stack.push(30);
+console.log(stack.size());
+stack.print();
+console.log(stack.pop());
+console.log(stack.peek());
+stack.print();
+```
+
+#### Stack Implementation Using Object
+
+```js
+class Stack {
+  constructor() {
+    this.items = {};
+    this.head = 0;
+  }
+
+  push(element) {
+    this.items[this.head] = element;
+    this.head++;
+  }
+  pop() {
+    const item = this.items[this.head - 1];
+    delete this.items[this.head - 1];
+    this.head--;
+    return item;
+  }
+  peek() {
+    return this.items[this.head - 1];
+  }
+  size() {
+    return this.head;
+  }
+  print() {
+    console.log(this.items);
+  }
+  isEmpty() {
+    return this.head === 0;
+  }
+}
+const stack = new Stack();
+console.log(stack.isEmpty());
+stack.push(20);
+stack.push(10);
+stack.push(30);
+console.log(stack.size());
+stack.print();
+console.log(stack.pop());
+console.log(stack.peek());
+stack.print();
+```
