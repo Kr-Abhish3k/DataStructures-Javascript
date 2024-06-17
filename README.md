@@ -349,3 +349,129 @@ console.log(stack.pop());
 console.log(stack.peek());
 stack.print();
 ```
+
+### Queue
+
+**CHARACTERISTICS**
+
+- The queue data structure is a sequential collection of elements that follows the pronciple of First In First Out [FIFO].
+- The first element inserted into the queue is the frist element to be removed.
+- A common analogy of queue can be a queue of people. People enter the queue at one end(rear/tail) and leave the queue from other end(front/head).
+- Queue is an abstract data type. It is defined by its behavior rather than being a mathemetical model.
+
+* The Queue data structure supports two main operations
+  - Enqueue, which adds an element to the rear/tail of the collection
+  - Dequeue, which removes an element from the front/head of the collection
+
+![Queue operation Enqueue](/assets/images/Queue_Enqueue.png)
+
+![Queue operation Dequeue](/assets/images/Queue_Dequeue.png)
+
+#### Queue Usage
+
+Typically a queue is great when we have to procees in a n orderly fashion.  
+Some typical use cases may include:
+
+- Printers
+- CPU task scheduling
+- Callback queue in Javascript runtime
+
+#### Queue Implementation using Array
+
+```js
+class Queue {
+  constructor() {
+    this.items = [];
+  }
+
+  enqueue(value) {
+    // add at rear end
+    this.items.push(value);
+  }
+  dequeue() {
+    // remove from head
+    // using shift method here brings linear time complexity to the data structure
+    return this.items.shift();
+  }
+  peek() {
+    if (!this.isEmpty()) {
+      return this.items[this.items.length - 1];
+    } else {
+      return null;
+    }
+  }
+  size() {
+    return this.items.length;
+  }
+  isEmpty() {
+    return Boolean(this.size());
+  }
+  print() {
+    console.log(this.items.toString());
+  }
+}
+```
+
+#### Queue Implementation using Object
+
+Both Enqueue and Dequeue operation has a constant time complexity here.
+
+```js
+class Queue {
+  constructor() {
+    this.items = {};
+    this.head = 0;
+    this.tail = 0;
+  }
+
+  enqueue(element) {
+    // add at rear end
+    this.items[this.tail] = element;
+    this.tail = this.tail + 1;
+  }
+  dequeue() {
+    if (this.head === this.tail) {
+      this.head = 0;
+      this.tail = 0;
+      return "Queue is Empty";
+    }
+    // remove from head
+    const item = this.items[this.head];
+    delete this.items[this.head];
+    this.head = this.head + 1;
+    return item;
+  }
+  peek() {
+    if (!this.isEmpty()) {
+      return this.items[this.head];
+    } else return null;
+  }
+  size() {
+    return this.tail - this.head;
+  }
+  isEmpty() {
+    return !Boolean(this.size());
+  }
+  print() {
+    console.log(this.items);
+  }
+}
+```
+
+#### CIrcular Queue
+
+**CHARACTERISTICS**
+
+- Circular queue is an extended version of regular queue.
+- The size of the queue is **fixed** and a single block of memeory is used as if the first element is connected to last element.
+- Also referred to as circular buffer or ring buffer and follows the FIFO principle.
+- A circular queue will reuse the empty block created during the dequeue operation.
+- When working with queues of fixed maximum size, a circular queue is a great implementation choice.
+
+* The Circular Queue data structure supports two main operations
+  - Enqueue, which adds an element to the rear/tail of the collection. If the queue gets full, we cant do any more enqueue operation.
+  - Dequeue, which removes an element from the front/head of the collection
+
+![Circular Queue Enqueue](/assets/images/CircularQueue_NQ.png)
+
+![Circular Queue Enqueue Dequeue](/assets/images/CircularQueue_NQDQ.png)
